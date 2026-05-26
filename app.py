@@ -6,11 +6,33 @@ from email.mime.text import MIMEText
 from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
 
-st.set_page_config(page_title="Bulk Email Sender", page_icon="📧")
-st.title("📧 Bulk Email Sender")
+st.set_page_config(page_title="Mail It", page_icon="📧")
+
+# ── PASSWORD PROTECTION ────────────────────────────────────────
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
+
+if not st.session_state.authenticated:
+    st.title("📧 Mail It")
+    st.subheader("🔒 Login to Continue")
+    pwd = st.text_input("Enter App Password", type="password")
+    if st.button("Login", use_container_width=True, type="primary"):
+        if pwd == "soham/2510":
+            st.session_state.authenticated = True
+            st.rerun()
+        else:
+            st.error("❌ Incorrect password. Please try again.")
+    st.stop()
+
+# ── MAIN APP (only shown after login) ─────────────────────────
+st.title("📧 Mail It")
 st.caption("Upload Excel → Send Emails → Download Updated File")
 
-# ── SIDEBAR SETTINGS ──────────────────────────────────────
+if st.button("🚪 Logout", help="Click to logout"):
+    st.session_state.authenticated = False
+    st.rerun()
+
+# ── SIDEBAR SETTINGS ───────────────────────────────────────────
 with st.sidebar:
     st.header("🔐 Gmail Settings")
     gmail_id = st.text_input("Gmail Address", placeholder="you@gmail.com")
@@ -40,7 +62,7 @@ Please send the following documents:
 Regards,
 {signature}""")
 
-# ── MAIN AREA ──────────────────────────────────────────────
+# ── MAIN AREA ──────────────────────────────────────────────────
 st.subheader("📂 Upload Excel File")
 st.caption("Excel must have columns: Name, Email (any order). Other columns are kept as-is.")
 
