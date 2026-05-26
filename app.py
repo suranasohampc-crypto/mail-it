@@ -17,7 +17,7 @@ if not st.session_state.authenticated:
     st.subheader("🔒 Login to Continue")
     pwd = st.text_input("Enter App Password", type="password")
     if st.button("Login", use_container_width=True, type="primary"):
-        if pwd == "soham/2510":
+        if pwd == st.secrets["APP_PASSWORD"]:
             st.session_state.authenticated = True
             st.rerun()
         else:
