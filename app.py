@@ -42,7 +42,7 @@ with st.sidebar:
     st.header("👤 Your Details")
     your_name = st.text_input("Your Name", placeholder="e.g. Rajesh Kumar")
     your_firm = st.text_input("Your Firm Name", placeholder="e.g. Kumar & Associates")
-    your_phone = st.text_input("Your Phone", placeholder="e.g. 98765 43210")
+    your_phone = st.text_input("Your Phone", placeholder="e.g. 12345 67890")
 
     st.header("✉️ Email Content")
     subject = st.text_input("Subject", value="Request for Income Tax Return Data - FY 2024-25")
